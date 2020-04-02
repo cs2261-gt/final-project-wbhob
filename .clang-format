@@ -1,0 +1,8 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 2
+AlignConsecutiveAssignments: true
+AllowShortBlocksOnASingleLine: true
+
+DerivePointerAlignment: false
+PointerAlignment: Right

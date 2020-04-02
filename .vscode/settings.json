@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.svelte": "html",
+    "invaders.h": "c",
+    "lose_state.h": "c"
+  }
+}
