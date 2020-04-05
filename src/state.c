@@ -3,6 +3,7 @@
 #include "game_1/game_1_state.h"
 #include "instructions_1/instructions_1_state.h"
 #include "lose/lose_state.h"
+#include "pause/pause_state.h"
 #include "start/start_state.h"
 #include "win/win_state.h"
 
@@ -12,6 +13,9 @@ void stateMachine() {
   switch (state) {
   case START:
     start();
+    break;
+  case PAUSE:
+    pause();
     break;
   case INSTRUCTIONS_1:
     instructions1();

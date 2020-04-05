@@ -3,7 +3,7 @@
 
 void stateMachine();
 
-enum { START, INSTRUCTIONS_1, GAME_LEVEL_1, WIN, LOSE };
+enum { START, PAUSE, INSTRUCTIONS_1, GAME_LEVEL_1, WIN, LOSE };
 
 extern int state;
 

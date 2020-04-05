@@ -15,6 +15,8 @@ void initialize() {
 
   buttons = BUTTONS;
 
+  copySpriteSheet();
+
   goToStart();
 }
 

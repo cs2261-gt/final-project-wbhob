@@ -1,20 +1,23 @@
 #include "lose_state.h"
 
+#include "lose_background.h"
+
 #include "../myLib.h"
 #include "../state.h"
 
 void goToLose() {
   state = LOSE;
 
-  hideSprites();
+  REG_BG0HOFF = 0;
 
-  // copyBackgroundPalette(loseBackgroundPal, loseBackgroundPalLen);
-  // copyTileImages(0, loseBackgroundTiles, loseBackgroundTilesLen);
-  // copyTileMap(24, loseBackgroundMap, loseBackgroundMapLen);
+  copyBackgroundPalette(loseBackgroundPal, loseBackgroundPalLen);
+  copyTileMap(0, loseBackgroundMap, loseBackgroundMapLen);
+  copyTileImages(1, loseBackgroundTiles, loseBackgroundTilesLen);
 }
 void lose() {
+  hideSprites();
   waitForVBlank();
   if (BUTTON_PRESSED(BUTTON_START)) {
-    // goToStart();
+    goToStart();
   }
 }
