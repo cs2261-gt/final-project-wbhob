@@ -14,6 +14,9 @@
  * KNOWN ISSUES
  *  - I have not been able to find any bugs in this version (but that doesn't
  * mean there aren't any!)
+ *  - One thing missing from the requirements Marie gave me is the bazooka
+ *  implementation. I think it's a pretty fun and unique cheat, so I think
+ *  that's what I'll do as my cheat in the next Milestone.
  *
  * GAMEPLAY INSTRUCTIONS
  *  - Press "A" to shoot.
@@ -22,6 +25,8 @@
  *  - Each level will increase the frequency of bullets and quantity of
  *  robots, and will advance automatically once all the robots on the screen are
  *  dead.
+ *
+ *
  *
  */
 
