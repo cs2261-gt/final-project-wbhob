@@ -1,3 +1,30 @@
+/*************************
+ * FINISHED SO FAR
+ *  - Can move through game states
+ *  - Enemy and Player healths
+ *  - Enemy and player deaths
+ *
+ * OUTSTANDING TASKS
+ *  - Art
+ *  - Bazooka (which I will make my cheat. It will blow up the robot it hits and
+ *  every one nearby)
+ *  - Parallax backgrounds or XXL background
+ *  - Sound
+ *
+ * KNOWN ISSUES
+ *  - I have not been able to find any bugs in this version (but that doesn't
+ * mean there aren't any!)
+ *
+ * GAMEPLAY INSTRUCTIONS
+ *  - Press "A" to shoot.
+ *  - Each robot's health is indicated by the bar floating
+ *  above it.
+ *  - Each level will increase the frequency of bullets and quantity of
+ *  robots, and will advance automatically once all the robots on the screen are
+ *  dead.
+ *
+ */
+
 #include "myLib.h"
 
 #include "start/start_state.h"
