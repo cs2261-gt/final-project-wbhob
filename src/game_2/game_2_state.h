@@ -1,13 +1,13 @@
 #ifndef GAME_1_STATE_H
 #define GAME_1_STATE_H
 
-void goToGame1();
-void game1();
+void goToGame2();
+void game2();
 
 #define PLAYER_INITIAL_HEALTH_COUNT 7
-#define ENEMY_INITIAL_HEALTH_COUNT 7
+#define ENEMY_INITIAL_HEALTH_COUNT 5
 
-#define ENEMY_COUNT 8
+#define ENEMY_COUNT 12
 #define PLAYER_BULLET_COUNT 10
 #define ENEMY_BULLET_COUNT 10
 
@@ -34,7 +34,7 @@ void game1();
 #define PLAYER_BULLET_OAM_INDEX ((ENEMY_OAM_SIZE) + (ENEMY_OAM_INDEX))
 
 // computed by hand using algebra... may have to refactor if the map changes
-#define GAME_1_LANE(lane) (40 + (32 * (lane)))
-#define GAME_1_ENEMY_COLUMN(slot) (20 + (32 * (slot)))
+#define GAME_2_LANE(lane) (40 + (32 * (lane)))
+#define GAME_2_ENEMY_COLUMN(slot) (20 + (32 * (slot)))
 
 #endif

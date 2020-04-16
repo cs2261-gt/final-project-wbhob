@@ -206,6 +206,12 @@ typedef struct {
   int lane;
   int width;
   int height;
+
+  int health;
+
+  int rdel;
+  int cdel;
+
   int aniCounter;
   int aniState;
   int prevAniState;

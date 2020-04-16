@@ -2,4 +2,4 @@
 
 #include "../myLib.h"
 
-void copyShadowOAM() { DMANow(3, &shadowOAM, OAM, 128); }
+void copyShadowOAM() { DMANow(3, &shadowOAM, OAM, 512); }

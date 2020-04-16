@@ -1,13 +1,13 @@
 #ifndef GAME_1_STATE_H
 #define GAME_1_STATE_H
 
-void goToGame1();
-void game1();
+void goToGame2();
+void game2();
 
 #define PLAYER_INITIAL_HEALTH_COUNT 7
-#define ENEMY_INITIAL_HEALTH_COUNT 7
+#define ENEMY_INITIAL_HEALTH_COUNT 5
 
-#define ENEMY_COUNT 8
+#define ENEMY_COUNT 16
 #define PLAYER_BULLET_COUNT 10
 #define ENEMY_BULLET_COUNT 10
 

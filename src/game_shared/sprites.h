@@ -27,6 +27,11 @@ void copySpriteSheet();
 #define ENEMY_BULLET_ATTR1 (ATTR1_TINY)
 #define ENEMY_BULLET_ATTR2 (ATTR2_PALROW(0) | ATTR2_TILEID(1, 6))
 
+#define ENEMY_HEALTH_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_WIDE)
+#define ENEMY_HEALTH_ATTR1 (ATTR1_TINY)
+#define ENEMY_HEALTH_ATTR2(health)                                             \
+  (ATTR2_PALROW(1) | ATTR2_TILEID((5 - (health)) * 2, 8))
+
 /******************************
  * General Macros
  ****************************/

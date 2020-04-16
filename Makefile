@@ -66,4 +66,4 @@ $(OBJECTS) : %.o : %.c
 
 clean:
 	$(RM) $(ROM_NAME) $(ELF_NAME) $(BIN_NAME)
-	$(RM) src/**/*.o *.i *.s
+	$(RM) **/*.o src/**/*.o *.i *.s

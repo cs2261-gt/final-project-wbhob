@@ -1,4 +1,4 @@
-#include "game_1_state.h"
+#include "game_3_state.h"
 
 #include "../myLib.h"
 
@@ -8,7 +8,7 @@
 #include "../game_shared/sprites.h"
 #include "../lose/lose_state.h"
 #include "../win/win_state.h"
-#include "game_1_background.h"
+#include "game_3_background.h"
 
 static GAMESPRITE player;
 static GAMESPRITE enemies[ENEMY_COUNT];
@@ -34,8 +34,8 @@ static void initializePlayer() {
 static void initializeEnemies() {
   enemiesDestroyed = 0;
   for (int j = 0; j < 4; j++) {
-    for (int i = 0; i < 2; i++) {
-      GAMESPRITE *enemy = &enemies[OFFSET(i, j, 2)];
+    for (int i = 0; i < 4; i++) {
+      GAMESPRITE *enemy = &enemies[OFFSET(i, j, 4)];
       enemy->active     = TRUE;
 
       enemy->height = 16;
@@ -96,7 +96,7 @@ static void drawEnemyHealth() {
 
     shadowOAM[oamIndex].attr0 = ENEMY_HEALTH_ATTR0 | (enemy.screenRow - 4);
     shadowOAM[oamIndex].attr1 = ENEMY_HEALTH_ATTR1 | enemy.screenCol;
-    shadowOAM[oamIndex].attr2 = ENEMY_HEALTH_ATTR2(enemy.health); 
+    shadowOAM[oamIndex].attr2 = ENEMY_HEALTH_ATTR2(enemy.health);
   }
 }
 
@@ -256,7 +256,7 @@ static void moveBackgrounds() {
   REG_BG0HOFF = hOffBg0;
 }
 
-void initializeGame() {
+void initializeGame3() {
   frames  = 0;
   hOffBg0 = 0;
 
@@ -265,23 +265,23 @@ void initializeGame() {
   initializePlayer();
 }
 
-void goToGame1() {
-  state = GAME_LEVEL_1;
+void goToGame3() {
+  state = GAME_LEVEL_3;
 
   REG_BG0CNT  = BG_SCREENBLOCK(0) | BG_CHARBLOCK(1) | BG_SIZE_SMALL | BG_4BPP;
   REG_BG0HOFF = hOffBg0;
 
-  copyBackgroundPalette(game1BackgroundPal, game1BackgroundPalLen);
-  copyTileMap(0, game1BackgroundMap, game1BackgroundMapLen);
-  copyTileImages(1, game1BackgroundTiles, game1BackgroundTilesLen);
+  copyBackgroundPalette(game3BackgroundPal, game3BackgroundPalLen);
+  copyTileMap(0, game3BackgroundMap, game3BackgroundMapLen);
+  copyTileImages(1, game3BackgroundTiles, game3BackgroundTilesLen);
 }
 
-void game1() {
+void game3() {
   frames++;
   updateBullets();
   handlePlayerInput();
 
-  if (frames % 30 == 0) {
+  if (frames % 20 == 0) {
     fireEnemyBullet();
   }
 
@@ -298,12 +298,12 @@ void game1() {
   drawPlayer();
 
   if (player.health == 0) {
+    hideSprites();
     goToLose();
   }
 
   if (enemiesDestroyed == ENEMY_COUNT) {
     hideSprites();
-    initializeGame2();
-    goToGame2();
+    goToWin();
   }
 }
