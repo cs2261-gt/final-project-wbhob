@@ -6,6 +6,9 @@
 #include "../utils/backgrounds.h"
 #include "start_background.h"
 
+#include "../sound/sound.h"
+#include "../sound/startSong.h"
+
 #include "../myLib.h"
 #include "../state.h"
 
@@ -22,7 +25,7 @@ static void initializePlayer() {
   player.height = 16;
   player.width  = 16;
 
-  player.screenRow = 120 - player.height;
+  player.screenRow = 138 - player.height;
   player.screenCol = SCREENWIDTH / 2 - player.width / 2;
 
   player.cdel = 1;
@@ -30,18 +33,18 @@ static void initializePlayer() {
 }
 
 static void initializeDoors() {
-  int doorWidth  = 8 * 3;
-  int doorHeight = 8 * 5;
-  int doorRow    = 80;
+  int doorWidth  = 32;
+  int doorHeight = 32;
+  int doorRow    = 108;
 
   startDoor.width  = doorWidth;
   startDoor.height = doorHeight;
-  startDoor.col    = 32;
+  startDoor.col    = 104;
   startDoor.row    = doorRow;
 
   instructionsDoor.width  = doorWidth;
   instructionsDoor.height = doorHeight;
-  instructionsDoor.col    = 112;
+  instructionsDoor.col    = 24;
   instructionsDoor.row    = doorRow;
 
   somethingElseDoor.width  = doorWidth;
@@ -64,6 +67,8 @@ static void handlePlayerSelection() {
   if (BUTTON_PRESSED(BUTTON_START)) {
     if (doorCollision(startDoor)) {
       initializeGame();
+
+
       goToGame1();
     } else if (doorCollision(instructionsDoor)) {
       goToInstructions1();
@@ -92,6 +97,8 @@ void goToStart() {
 
   initializeDoors();
   initializePlayer();
+
+  playSoundA(&startSong, STARTSONGLEN, 1);
 }
 
 void start() {

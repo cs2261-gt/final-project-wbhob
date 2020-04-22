@@ -35,6 +35,8 @@
 #include "start/start_state.h"
 #include "state.h"
 
+#include "sound/sound.h"
+
 #include "utils/shadow_oam.h"
 
 unsigned short buttons;
@@ -48,6 +50,9 @@ void initialize() {
   buttons = BUTTONS;
 
   copySpriteSheet();
+
+  setupSounds();
+  setupInterrupts();
 
   goToStart();
 }

@@ -192,11 +192,11 @@ typedef struct {
   int cdel;
   int width;
   int height;
+
   int aniCounter;
-  int aniState;
-  int prevAniState;
   int curFrame;
   int numFrames;
+
   int hide;
 } ANISPRITE;
 

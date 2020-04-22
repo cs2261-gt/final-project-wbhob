@@ -5,11 +5,11 @@
 //
 //	winBackground, 256x256@4, 
 //	+ palette 256 entries, not compressed
-//	+ 167 tiles (t|f|p reduced) not compressed
+//	+ 115 tiles (t|f|p reduced) not compressed
 //	+ regular map (in SBBs), not compressed, 32x32 
-//	Total size: 512 + 5344 + 2048 = 7904
+//	Total size: 512 + 3680 + 2048 = 6240
 //
-//	Time-stamp: 2020-04-05, 15:17:48
+//	Time-stamp: 2020-04-20, 21:04:42
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -18,8 +18,8 @@
 #ifndef GRIT_WINBACKGROUND_H
 #define GRIT_WINBACKGROUND_H
 
-#define winBackgroundTilesLen 5344
-extern const unsigned short winBackgroundTiles[2672];
+#define winBackgroundTilesLen 3680
+extern const unsigned short winBackgroundTiles[1840];
 
 #define winBackgroundMapLen 2048
 extern const unsigned short winBackgroundMap[1024];

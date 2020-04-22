@@ -5,6 +5,9 @@
 #include "../state.h"
 #include "../utils/backgrounds.h"
 
+#include "../sound/gameSong.h"
+#include "../sound/sound.h"
+
 #include "../game_shared/sprites.h"
 #include "../lose/lose_state.h"
 #include "../win/win_state.h"
@@ -45,10 +48,9 @@ static void initializeEnemies() {
 
       enemy->health = 5;
 
-      enemy->numFrames    = ENEMY_NUM_FRAMES;
-      enemy->aniCounter   = i % ENEMY_NUM_FRAMES;
-      enemy->curFrame     = i % ENEMY_NUM_FRAMES;
-      enemy->prevAniState = enemies[i].aniState - 1;
+      enemy->numFrames  = ENEMY_NUM_FRAMES;
+      enemy->aniCounter = i % ENEMY_NUM_FRAMES;
+      enemy->curFrame   = i % ENEMY_NUM_FRAMES;
 
       enemy->screenRow = GAME_1_LANE(j);
       enemy->screenCol = GAME_1_ENEMY_COLUMN(i);
@@ -96,7 +98,7 @@ static void drawEnemyHealth() {
 
     shadowOAM[oamIndex].attr0 = ENEMY_HEALTH_ATTR0 | (enemy.screenRow - 4);
     shadowOAM[oamIndex].attr1 = ENEMY_HEALTH_ATTR1 | enemy.screenCol;
-    shadowOAM[oamIndex].attr2 = ENEMY_HEALTH_ATTR2(enemy.health); 
+    shadowOAM[oamIndex].attr2 = ENEMY_HEALTH_ATTR2(enemy.health);
   }
 }
 
@@ -109,14 +111,15 @@ static void drawPlayer() {
 
 static void drawEnemies() {
   for (int i = 0; i < ENEMY_COUNT; i++) {
-    GAMESPRITE enemy = enemies[i];
-    int oamIndex     = ENEMY_OAM_INDEX + i;
+    GAMESPRITE *enemy = &enemies[i];
+    int oamIndex      = ENEMY_OAM_INDEX + i;
 
-    if (enemy.active) {
-      shadowOAM[oamIndex].attr0 = ENEMY_ATTR0 | enemy.screenRow;
-      shadowOAM[oamIndex].attr1 = ENEMY_ATTR1 | enemy.screenCol;
-      shadowOAM[oamIndex].attr2 = ENEMY_ATTR2(0);
-      // shadowOAM[i].attr2 = ENEMY_ATTR2(enemy.curFrame);
+    if (enemy->active) {
+      updateEnemy(enemy);
+
+      shadowOAM[oamIndex].attr0 = ENEMY_ATTR0 | enemy->screenRow;
+      shadowOAM[oamIndex].attr1 = ENEMY_ATTR1 | enemy->screenCol;
+      shadowOAM[oamIndex].attr2 = ENEMY_ATTR2(enemy->curFrame);
     } else {
       shadowOAM[oamIndex].attr0 = ATTR0_HIDE;
     }
@@ -263,6 +266,9 @@ void initializeGame() {
   initializeBullets();
   initializeEnemies();
   initializePlayer();
+
+  stopSound();
+  playSoundA(&gameSong, GAMESONGLEN, 1);
 }
 
 void goToGame1() {

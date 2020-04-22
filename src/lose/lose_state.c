@@ -2,6 +2,9 @@
 
 #include "lose_background.h"
 
+#include "../sound/loseSong.h"
+#include "../sound/sound.h"
+
 #include "../myLib.h"
 #include "../state.h"
 
@@ -13,6 +16,8 @@ void goToLose() {
   copyBackgroundPalette(loseBackgroundPal, loseBackgroundPalLen);
   copyTileMap(0, loseBackgroundMap, loseBackgroundMapLen);
   copyTileImages(1, loseBackgroundTiles, loseBackgroundTilesLen);
+
+  playSoundA(&loseSong, LOSESONGLEN, 0);
 }
 void lose() {
   hideSprites();

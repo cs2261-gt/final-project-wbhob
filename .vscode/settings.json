@@ -4,6 +4,8 @@
     "invaders.h": "c",
     "lose_state.h": "c",
     "backgrounds.h": "c",
-    "instructions_1_state.h": "c"
+    "instructions_1_state.h": "c",
+    "losesong.h": "c",
+    "gamesong.h": "c"
   }
 }

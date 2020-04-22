@@ -5,6 +5,9 @@
 #include "../state.h"
 #include "../utils/backgrounds.h"
 
+#include "../sound/gameSong.h"
+#include "../sound/sound.h"
+
 #include "../game_shared/sprites.h"
 #include "../lose/lose_state.h"
 #include "../win/win_state.h"
@@ -109,14 +112,15 @@ static void drawPlayer() {
 
 static void drawEnemies() {
   for (int i = 0; i < ENEMY_COUNT; i++) {
-    GAMESPRITE enemy = enemies[i];
-    int oamIndex     = ENEMY_OAM_INDEX + i;
+    GAMESPRITE *enemy = &enemies[i];
+    int oamIndex      = ENEMY_OAM_INDEX + i;
 
-    if (enemy.active) {
-      shadowOAM[oamIndex].attr0 = ENEMY_ATTR0 | enemy.screenRow;
-      shadowOAM[oamIndex].attr1 = ENEMY_ATTR1 | enemy.screenCol;
-      shadowOAM[oamIndex].attr2 = ENEMY_ATTR2(0);
-      // shadowOAM[i].attr2 = ENEMY_ATTR2(enemy.curFrame);
+    if (enemy->active) {
+      updateEnemy(enemy);
+
+      shadowOAM[oamIndex].attr0 = ENEMY_ATTR0 | enemy->screenRow;
+      shadowOAM[oamIndex].attr1 = ENEMY_ATTR1 | enemy->screenCol;
+      shadowOAM[oamIndex].attr2 = ENEMY_ATTR2(enemy->curFrame);
     } else {
       shadowOAM[oamIndex].attr0 = ATTR0_HIDE;
     }

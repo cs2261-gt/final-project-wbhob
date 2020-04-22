@@ -2,6 +2,9 @@
 
 #include "win_background.h"
 
+#include "../sound/sound.h"
+#include "../sound/winSong.h"
+
 #include "../myLib.h"
 #include "../state.h"
 
@@ -13,6 +16,8 @@ void goToWin() {
   copyBackgroundPalette(winBackgroundPal, winBackgroundPalLen);
   copyTileMap(0, winBackgroundMap, winBackgroundMapLen);
   copyTileImages(1, winBackgroundTiles, winBackgroundTilesLen);
+
+  playSoundA(&winSong, WINSONGLEN, 0);
 }
 void win() {
   hideSprites();
