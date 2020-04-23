@@ -22,6 +22,9 @@ static int frames;
 static int enemiesDestroyed;
 static int hOffBg0 = 0;
 
+static int healthCurFrame   = 0;
+static int healthTotalFrame = 5;
+
 static void initializePlayer() {
   player.health = PLAYER_INITIAL_HEALTH_COUNT;
 
@@ -71,24 +74,6 @@ static void initializeBullets() {
     enemyBullets[i].cdel   = 1;
     enemyBullets[i].height = 2;
     enemyBullets[i].width  = 8;
-  }
-}
-
-static void drawPlayerHealth() {
-  int healthRow = 8;
-
-  for (int i = 0; i < player.health; i++) {
-    int oamIndex = HEALTH_OAM_INDEX + i;
-
-    shadowOAM[oamIndex].attr0 = HEART_ATTR0 | healthRow;
-    shadowOAM[oamIndex].attr1 = HEART_ATTR1 | healthRow + (i * 16);
-    shadowOAM[oamIndex].attr2 = HEART_ATTR2;
-  }
-
-  for (int i = player.health; i < PLAYER_INITIAL_HEALTH_COUNT; i++) {
-    int oamIndex = HEALTH_OAM_INDEX + i;
-
-    shadowOAM[oamIndex].attr0 = ATTR0_HIDE;
   }
 }
 
@@ -272,7 +257,7 @@ void initializeGame2() {
 void goToGame2() {
   state = GAME_LEVEL_2;
 
-  REG_BG0CNT  = BG_SCREENBLOCK(0) | BG_CHARBLOCK(1) | BG_SIZE_SMALL | BG_4BPP;
+  REG_BG0CNT  = BG_SCREENBLOCK(0) | BG_CHARBLOCK(1) | BG_SIZE_WIDE | BG_4BPP;
   REG_BG0HOFF = hOffBg0;
 
   copyBackgroundPalette(game2BackgroundPal, game2BackgroundPalLen);
@@ -295,7 +280,8 @@ void game2() {
 
   moveBackgrounds();
   drawEnemyHealth();
-  drawPlayerHealth();
+  drawPlayerHealth(player.health, PLAYER_INITIAL_HEALTH_COUNT, frames,
+                   HEALTH_OAM_INDEX);
   drawEnemyBullets();
   drawPlayerBullets();
   drawEnemies();

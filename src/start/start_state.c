@@ -6,8 +6,6 @@
 #include "../utils/backgrounds.h"
 #include "start_background.h"
 
-#include "../sound/sound.h"
-#include "../sound/startSong.h"
 
 #include "../myLib.h"
 #include "../state.h"
@@ -67,8 +65,6 @@ static void handlePlayerSelection() {
   if (BUTTON_PRESSED(BUTTON_START)) {
     if (doorCollision(startDoor)) {
       initializeGame();
-
-
       goToGame1();
     } else if (doorCollision(instructionsDoor)) {
       goToInstructions1();
@@ -97,8 +93,6 @@ void goToStart() {
 
   initializeDoors();
   initializePlayer();
-
-  playSoundA(&startSong, STARTSONGLEN, 1);
 }
 
 void start() {

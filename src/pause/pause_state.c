@@ -19,6 +19,9 @@ void goToPause() {
 
   pauseSound();
 
+  REG_BG0CNT = BG_SCREENBLOCK(0) | BG_CHARBLOCK(1) | BG_SIZE_SMALL | BG_4BPP |
+               BG_SIZE_WIDE;
+
   playSoundB(&pauseSong, PAUSESONGLEN, 1);
 }
 
@@ -29,7 +32,7 @@ void pause() {
   if (BUTTON_PRESSED(BUTTON_START)) {
     unpauseSound();
     stopSoundB();
-    goToGame1();
+    backToGame();
   }
   if (BUTTON_PRESSED(BUTTON_B)) {
     goToStart();

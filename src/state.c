@@ -10,6 +10,7 @@
 #include "win/win_state.h"
 
 int state;
+int lastLevel = GAME_LEVEL_1;
 
 void stateMachine() {
   switch (state) {
@@ -23,12 +24,15 @@ void stateMachine() {
     instructions1();
     break;
   case GAME_LEVEL_1:
+    lastLevel = GAME_LEVEL_1;
     game1();
     break;
   case GAME_LEVEL_2:
+    lastLevel = GAME_LEVEL_2;
     game2();
     break;
   case GAME_LEVEL_3:
+    lastLevel = GAME_LEVEL_3;
     game3();
     break;
   case WIN:
@@ -36,6 +40,20 @@ void stateMachine() {
     break;
   case LOSE:
     lose();
+    break;
+  }
+}
+
+void backToGame() {
+  switch (lastLevel) {
+  case GAME_LEVEL_1:
+    goToGame1();
+    break;
+  case GAME_LEVEL_2:
+    goToGame2();
+    break;
+  case GAME_LEVEL_3:
+    goToGame3();
     break;
   }
 }

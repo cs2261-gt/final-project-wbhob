@@ -2,8 +2,10 @@
 
 #include "lose_background.h"
 
-#include "../sound/loseSong.h"
 #include "../sound/sound.h"
+
+#include "../sound/loseSong.h"
+#include "../sound/startSong.h"
 
 #include "../myLib.h"
 #include "../state.h"
@@ -23,6 +25,7 @@ void lose() {
   hideSprites();
   waitForVBlank();
   if (BUTTON_PRESSED(BUTTON_START)) {
+    playSoundA(&startSong, STARTSONGLEN, 1);
     goToStart();
   }
 }

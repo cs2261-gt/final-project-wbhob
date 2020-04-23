@@ -22,6 +22,11 @@ static int frames;
 static int enemiesDestroyed;
 static int hOffBg0 = 0;
 
+static int healthCurFrame   = 0;
+static int healthTotalFrame = 5;
+
+static int screenBlock = 24;
+
 static void initializePlayer() {
   player.health = PLAYER_INITIAL_HEALTH_COUNT;
 
@@ -74,23 +79,6 @@ static void initializeBullets() {
   }
 }
 
-static void drawPlayerHealth() {
-  int healthRow = 8;
-
-  for (int i = 0; i < player.health; i++) {
-    int oamIndex = HEALTH_OAM_INDEX + i;
-
-    shadowOAM[oamIndex].attr0 = HEART_ATTR0 | healthRow;
-    shadowOAM[oamIndex].attr1 = HEART_ATTR1 | healthRow + (i * 16);
-    shadowOAM[oamIndex].attr2 = HEART_ATTR2;
-  }
-
-  for (int i = player.health; i < PLAYER_INITIAL_HEALTH_COUNT; i++) {
-    int oamIndex = HEALTH_OAM_INDEX + i;
-
-    shadowOAM[oamIndex].attr0 = ATTR0_HIDE;
-  }
-}
 
 static void drawEnemyHealth() {
   for (int i = 0; i < ENEMY_COUNT; i++) {
@@ -256,6 +244,19 @@ static void moveBackgrounds() {
   // if (frames % 2) {
   hOffBg0++;
   // }
+
+  if (hOffBg0 > 256) {
+    screenBlock++;
+    hOffBg0 -= 256;
+
+    if (screenBlock > 27) {
+      screenBlock = 24;
+    }
+
+    REG_BG0CNT =
+        BG_SCREENBLOCK(screenBlock) | BG_CHARBLOCK(0) | BG_SIZE_WIDE | BG_8BPP;
+  }
+
   REG_BG0HOFF = hOffBg0;
 }
 
@@ -271,12 +272,13 @@ void initializeGame3() {
 void goToGame3() {
   state = GAME_LEVEL_3;
 
-  REG_BG0CNT  = BG_SCREENBLOCK(0) | BG_CHARBLOCK(1) | BG_SIZE_SMALL | BG_4BPP;
   REG_BG0HOFF = hOffBg0;
+  REG_BG0CNT  = BG_SCREENBLOCK(screenBlock) | BG_CHARBLOCK(0) | BG_8BPP | BG_SIZE_WIDE;
 
   copyBackgroundPalette(game3BackgroundPal, game3BackgroundPalLen);
-  copyTileMap(0, game3BackgroundMap, game3BackgroundMapLen);
-  copyTileImages(1, game3BackgroundTiles, game3BackgroundTilesLen);
+  copyTileMap(24, game3BackgroundMap, game3BackgroundMapLen);
+  copyTileMap(28, game3BackgroundMap, game3BackgroundMapLen);
+  copyTileImages(0, game3BackgroundTiles, game3BackgroundTilesLen);
 }
 
 void game3() {
@@ -294,7 +296,8 @@ void game3() {
 
   moveBackgrounds();
   drawEnemyHealth();
-  drawPlayerHealth();
+  drawPlayerHealth(player.health, PLAYER_INITIAL_HEALTH_COUNT, frames,
+                   HEALTH_OAM_INDEX);
   drawEnemyBullets();
   drawPlayerBullets();
   drawEnemies();

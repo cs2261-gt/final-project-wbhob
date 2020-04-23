@@ -3,17 +3,24 @@
  *  - Can move through game states
  *  - Enemy and Player healths
  *  - Enemy and player deaths
+ *  - Sound (looping - game music, non-looping - lose sound)
+ *    - the music is all original, by the way :) and covers of existing songs
+ *  - Backgrounds
+ *  - XXL background (3rd level of game)
+ *  - Sprites
+ *  - Animations - the robot's treads and the player health indicators are
+ *    looping animations
  *
  * OUTSTANDING TASKS
- *  - Art
  *  - Bazooka (which I will make my cheat. It will blow up the robot it hits and
  *  every one nearby)
- *  - Parallax backgrounds or XXL background
- *  - Sound
+ *  - gun sounds (will play simultaneously)
  *
  * KNOWN ISSUES
- *  - I have not been able to find any bugs in this version (but that doesn't
- * mean there aren't any!)
+ *  - Background colors don't look quite right in game...
+ *  - the status bar from the last milestone has disappeared. I'll add it back
+ * before submitting
+ *
  *  - One thing missing from the requirements Marie gave me is the bazooka
  *  implementation. I think it's a pretty fun and unique cheat, so I think
  *  that's what I'll do as my cheat in the next Milestone.
@@ -27,6 +34,10 @@
  *  dead.
  *
  *
+ * TECHNICAL THING :
+ *   In order to infinitely scroll the background without going out of memory
+ * for XL, I loaded the tilemap in TWICE, and once we go past the fourth
+ * consecutive screenblock, we just go back to the first one.
  *
  */
 
@@ -35,6 +46,7 @@
 #include "start/start_state.h"
 #include "state.h"
 
+#include "sound/startSong.h"
 #include "sound/sound.h"
 
 #include "utils/shadow_oam.h"
@@ -53,6 +65,8 @@ void initialize() {
 
   setupSounds();
   setupInterrupts();
+
+  playSoundA(&startSong, STARTSONGLEN, 1);
 
   goToStart();
 }

@@ -4,13 +4,14 @@
 #include "../myLib.h"
 
 void copySpriteSheet();
+void drawPlayerHealth(int health, int initialHealth, int frames, u16 oamPartitionStart);
 
 /******************************
  * Player Sprite Macros
  ****************************/
 #define PLAYER_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_SQUARE)
 #define PLAYER_ATTR1 (ATTR1_SMALL)
-#define PLAYER_ATTR2(frame) (ATTR2_PALROW(1) | ATTR2_TILEID((frame), 2))
+#define PLAYER_ATTR2(frame) (ATTR2_PALROW(0) | ATTR2_TILEID((frame), 2))
 
 #define PLAYER_BULLET_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_SQUARE)
 #define PLAYER_BULLET_ATTR1 (ATTR1_TINY)
@@ -21,7 +22,7 @@ void copySpriteSheet();
  ****************************/
 #define ENEMY_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_SQUARE)
 #define ENEMY_ATTR1 (ATTR1_SMALL)
-#define ENEMY_ATTR2(frame) (ATTR2_PALROW(2) | ATTR2_TILEID(frame*2, 4))
+#define ENEMY_ATTR2(frame) (ATTR2_PALROW(0) | ATTR2_TILEID(frame*2, 4))
 
 #define ENEMY_BULLET_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_SQUARE)
 #define ENEMY_BULLET_ATTR1 (ATTR1_TINY)
@@ -37,7 +38,7 @@ void copySpriteSheet();
  ****************************/
 #define HEART_ATTR0 (ATTR0_REGULAR | ATTR0_4BPP | ATTR0_WIDE)
 #define HEART_ATTR1 (ATTR1_SMALL)
-#define HEART_ATTR2 (ATTR2_PALROW(0) | ATTR2_TILEID(0, 7))
+#define HEART_ATTR2(frame) (ATTR2_PALROW(0) | ATTR2_TILEID(frame*2, 7))
 
 #define ENEMY_NUM_FRAMES 3
 
