@@ -18,11 +18,12 @@ void updateEnemy(GAMESPRITE *enemy, int size) {
     enemy->curFrame = enemy->aniCounter / 4 % enemy->numFrames;
 }
 
-void drawPlayerHealth(int health, int initialHealth, int frames, u16 oamPartitionStart) {
+void drawPlayerHealth(int health, int initialHealth, int frames,
+                      u16 oamPartitionStart) {
   int healthRow = 8;
   if (frames % 10 == 0) {
     healthCurFrame++;
-    if (healthCurFrame >= healthTotalFrame -1 ) {
+    if (healthCurFrame >= healthTotalFrame - 1) {
       healthCurFrame = 0;
     }
   }

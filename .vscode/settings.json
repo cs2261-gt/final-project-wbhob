@@ -6,6 +6,13 @@
     "backgrounds.h": "c",
     "instructions_1_state.h": "c",
     "losesong.h": "c",
-    "gamesong.h": "c"
+    "gamesong.h": "c",
+    "__config": "c",
+    "__cxx_version": "c",
+    "__hash_table": "c",
+    "__locale": "c",
+    "list": "c",
+    "tuple": "c",
+    "enemies.h": "c"
   }
 }

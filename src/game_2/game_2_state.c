@@ -8,15 +8,20 @@
 #include "../sound/gameSong.h"
 #include "../sound/sound.h"
 
+#include "../game_shared/bazooka.h"
+#include "../game_shared/enemies.h"
 #include "../game_shared/sprites.h"
 #include "../lose/lose_state.h"
 #include "../win/win_state.h"
 #include "game_2_background.h"
 
+static int columns = 3;
+
 static GAMESPRITE player;
 static GAMESPRITE enemies[ENEMY_COUNT];
 static SPRITE playerBullets[PLAYER_BULLET_COUNT];
 static SPRITE enemyBullets[ENEMY_BULLET_COUNT];
+static SPRITE bazooka;
 
 static int frames;
 static int enemiesDestroyed;
@@ -35,31 +40,6 @@ static void initializePlayer() {
 
   player.screenRow = 120 - player.height;
   player.screenCol = SCREENWIDTH - player.width / 2 - 40;
-}
-
-static void initializeEnemies() {
-  enemiesDestroyed = 0;
-  for (int j = 0; j < 4; j++) {
-    for (int i = 0; i < 3; i++) {
-      GAMESPRITE *enemy = &enemies[OFFSET(i, j, 3)];
-      enemy->active     = TRUE;
-
-      enemy->height = 16;
-      enemy->width  = 16;
-
-      enemy->lane = j;
-
-      enemy->health = 5;
-
-      enemy->numFrames    = ENEMY_NUM_FRAMES;
-      enemy->aniCounter   = i % ENEMY_NUM_FRAMES;
-      enemy->curFrame     = i % ENEMY_NUM_FRAMES;
-      enemy->prevAniState = enemies[i].aniState - 1;
-
-      enemy->screenRow = GAME_2_LANE(j);
-      enemy->screenCol = GAME_2_ENEMY_COLUMN(i);
-    }
-  }
 }
 
 static void initializeBullets() {
@@ -146,10 +126,8 @@ static void handleCollisions() {
     if (bullet.active) {
       for (int j = 0; j < ENEMY_COUNT; j++) {
         GAMESPRITE *enemy = &enemies[j];
-        if (enemy->active &&
-            collision(bullet.screenCol, bullet.screenRow, bullet.width,
-                      bullet.height, enemy->screenCol, enemy->screenRow,
-                      enemy->width, enemy->height)) {
+        if (enemy->active && collision(bullet.screenCol, bullet.screenRow, bullet.width, bullet.height, enemy->screenCol, enemy->screenRow,
+                                       enemy->width, enemy->height)) {
           playerBullets[i].active = FALSE;
           enemy->health--;
 
@@ -165,10 +143,8 @@ static void handleCollisions() {
   }
   for (int i = 0; i < ENEMY_BULLET_COUNT; i++) {
     SPRITE bullet = enemyBullets[i];
-    if (bullet.active &&
-        collision(bullet.screenCol, bullet.screenRow, bullet.width,
-                  bullet.height, player.screenCol, player.screenRow,
-                  player.width, player.height)) {
+    if (bullet.active && collision(bullet.screenCol, bullet.screenRow, bullet.width, bullet.height, player.screenCol, player.screenRow,
+                                   player.width, player.height)) {
       enemyBullets[i].active = FALSE;
       player.health--;
       break;
@@ -203,8 +179,7 @@ static void fireEnemyBullet() {
       if (!enemyBullets[i].active) {
         enemyBullets[i].active    = TRUE;
         enemyBullets[i].screenCol = enemy.screenCol;
-        enemyBullets[i].screenRow =
-            enemy.screenRow + (enemy.height / 2) - (enemyBullets[i].height / 2);
+        enemyBullets[i].screenRow = enemy.screenRow + (enemy.height / 2) - (enemyBullets[i].height / 2);
         break;
       }
     }
@@ -215,8 +190,7 @@ static void firePlayerBullet() {
     if (!playerBullets[i].active) {
       playerBullets[i].active    = TRUE;
       playerBullets[i].screenCol = player.screenCol;
-      playerBullets[i].screenRow =
-          player.screenRow + player.height / 2 - playerBullets[i].height;
+      playerBullets[i].screenRow = player.screenRow + player.height / 2 - playerBullets[i].height;
       break;
     }
   }
@@ -226,11 +200,14 @@ static void handlePlayerInput() {
   if (BUTTON_PRESSED(BUTTON_UP) && player.lane - 1 >= 0) {
     player.lane--;
   }
-  if (BUTTON_PRESSED(BUTTON_DOWN) && player.lane + 1 <= 3) {
+  if (BUTTON_PRESSED(BUTTON_DOWN) && player.lane + 1 <= columns) {
     player.lane++;
   }
   if (BUTTON_PRESSED(BUTTON_A)) {
     firePlayerBullet();
+  }
+  if (cheat && BUTTON_PRESSED(BUTTON_B)) {
+    fireBazooka(&bazooka, &player);
   }
   if (BUTTON_PRESSED(BUTTON_START)) {
     goToPause();
@@ -249,9 +226,12 @@ void initializeGame2() {
   frames  = 0;
   hOffBg0 = 0;
 
+  enemiesDestroyed = 0;
+
   initializeBullets();
-  initializeEnemies();
+  initializeEnemies(&enemies, columns);
   initializePlayer();
+  initializeBazooka(&bazooka);
 }
 
 void goToGame2() {
@@ -268,24 +248,30 @@ void goToGame2() {
 void game2() {
   frames++;
   updateBullets();
+  updateBazooka(&bazooka);
   handlePlayerInput();
 
   if (frames % 20 == 0) {
     fireEnemyBullet();
   }
 
+  if (checkCheatSequence()) {
+    cheat = TRUE;
+  }
+
   handleCollisions();
+  handleBazookaCollisions(&enemies, &bazooka, &enemiesDestroyed, ENEMY_COUNT, columns);
 
   waitForVBlank();
 
   moveBackgrounds();
   drawEnemyHealth();
-  drawPlayerHealth(player.health, PLAYER_INITIAL_HEALTH_COUNT, frames,
-                   HEALTH_OAM_INDEX);
+  drawPlayerHealth(player.health, PLAYER_INITIAL_HEALTH_COUNT, frames, HEALTH_OAM_INDEX);
   drawEnemyBullets();
   drawPlayerBullets();
   drawEnemies();
   drawPlayer();
+  drawBazooka(&bazooka, BAZOOKA_OAM_INDEX);
 
   if (player.health == 0) {
     goToLose();

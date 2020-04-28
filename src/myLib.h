@@ -1,6 +1,8 @@
 #ifndef MY_LIB_H
 #define MY_LIB_H
 
+extern int cheat;
+
 // Common Typedefs
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -203,9 +205,11 @@ typedef struct {
 typedef struct {
   int screenRow;
   int screenCol;
-  int lane;
   int width;
   int height;
+  
+  int lane;
+  int columnLane;
 
   int health;
 

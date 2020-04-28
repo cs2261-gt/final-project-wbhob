@@ -17,8 +17,11 @@ void game1();
 #define PLAYER_OAM_SIZE 1
 #define PLAYER_OAM_INDEX 0
 
+#define BAZOOKA_OAM_SIZE 1
+#define BAZOOKA_OAM_INDEX ((PLAYER_OAM_SIZE) + (PLAYER_OAM_INDEX))
+
 #define ENEMY_HEALTH_OAM_SIZE ENEMY_COUNT
-#define ENEMY_HEALTH_OAM_INDEX ((PLAYER_OAM_SIZE) + (PLAYER_OAM_INDEX))
+#define ENEMY_HEALTH_OAM_INDEX ((BAZOOKA_OAM_SIZE) + (BAZOOKA_OAM_INDEX))
 
 #define ENEMY_BULLET_OAM_SIZE ENEMY_BULLET_COUNT
 #define ENEMY_BULLET_OAM_INDEX                                                 \
@@ -33,8 +36,8 @@ void game1();
 #define PLAYER_BULLET_OAM_SIZE PLAYER_BULLET_COUNT
 #define PLAYER_BULLET_OAM_INDEX ((ENEMY_OAM_SIZE) + (ENEMY_OAM_INDEX))
 
+
 // computed by hand using algebra... may have to refactor if the map changes
-#define GAME_1_LANE(lane) (40 + (32 * (lane)))
-#define GAME_1_ENEMY_COLUMN(slot) (20 + (32 * (slot)))
+
 
 #endif

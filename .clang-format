@@ -6,3 +6,4 @@ AllowShortBlocksOnASingleLine: true
 
 DerivePointerAlignment: false
 PointerAlignment: Right
+ColumnLimit: 140

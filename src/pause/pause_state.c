@@ -2,6 +2,7 @@
 
 #include "pause_background.h"
 
+#include "../sound/startSong.h"
 #include "../sound/pauseSong.h"
 #include "../sound/sound.h"
 
@@ -35,6 +36,8 @@ void pause() {
     backToGame();
   }
   if (BUTTON_PRESSED(BUTTON_B)) {
+    stopSoundB();
+    playSoundA(&startSong, STARTSONGLEN, 1);
     goToStart();
   }
 }
