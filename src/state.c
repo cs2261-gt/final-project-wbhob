@@ -1,5 +1,6 @@
 #include "state.h"
 
+#include "credits/credits_state.h"
 #include "game_1/game_1_state.h"
 #include "game_2/game_2_state.h"
 #include "game_3/game_3_state.h"
@@ -22,6 +23,9 @@ void stateMachine() {
     break;
   case INSTRUCTIONS_1:
     instructions1();
+    break;
+  case CREDITS:
+    credits();
     break;
   case GAME_LEVEL_1:
     lastLevel = GAME_LEVEL_1;

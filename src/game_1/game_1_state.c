@@ -6,6 +6,7 @@
 #include "../utils/backgrounds.h"
 
 #include "../sound/gameSong.h"
+#include "../sound/gun.h"
 #include "../sound/sound.h"
 
 #include "../game_shared/bazooka.h"
@@ -185,6 +186,7 @@ static void fireEnemyBullet() {
 static void firePlayerBullet() {
   for (int i = 0; i < PLAYER_BULLET_COUNT; i++) {
     if (!playerBullets[i].active) {
+      playSoundB(&gunSound, GUNSOUNDLEN, 0);
       playerBullets[i].active    = TRUE;
       playerBullets[i].screenCol = player.screenCol;
       playerBullets[i].screenRow = player.screenRow + player.height / 2 - playerBullets[i].height;

@@ -13,6 +13,9 @@
     "__locale": "c",
     "list": "c",
     "tuple": "c",
-    "enemies.h": "c"
+    "enemies.h": "c",
+    "bazooka.h": "c",
+    "gun.h": "c",
+    "credits_state.h": "c"
   }
 }

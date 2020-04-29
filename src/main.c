@@ -1,5 +1,8 @@
 /*************************
- * FINISHED SO FAR
+ * ORIGINAL MUSIC: https://soundcloud.com/wbhob/sets/gameboy-advanced
+ *
+ *
+ * FINISHED
  *  - Can move through game states
  *  - Enemy and Player healths
  *  - Enemy and player deaths
@@ -10,20 +13,14 @@
  *  - Sprites
  *  - Animations - the robot's treads and the player health indicators are
  *    looping animations
+ *  - gun/bazooka sounds
+ *  - cheat (bazooka, activated by pressing LEFT, RIGHT, LEFT, RIGHT, LEFT, RIGHT, LEFT, RIGHT)
  *
  * OUTSTANDING TASKS
- *  - Bazooka (which I will make my cheat. It will blow up the robot it hits and
- *  every one nearby)
- *  - gun sounds (will play simultaneously)
+ *  - All done :)
  *
  * KNOWN ISSUES
- *  - Background colors don't look quite right in game...
- *  - the status bar from the last milestone has disappeared. I'll add it back
- * before submitting
- *
- *  - One thing missing from the requirements Marie gave me is the bazooka
- *  implementation. I think it's a pretty fun and unique cheat, so I think
- *  that's what I'll do as my cheat in the next Milestone.
+ *  - None that I know of
  *
  * GAMEPLAY INSTRUCTIONS
  *  - Press "A" to shoot.

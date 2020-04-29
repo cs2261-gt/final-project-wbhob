@@ -1,11 +1,11 @@
 #include "start_state.h"
 
+#include "../credits/credits_state.h"
 #include "../game_1/game_1_state.h"
 #include "../game_shared/sprites.h"
 #include "../instructions_1/instructions_1_state.h"
 #include "../utils/backgrounds.h"
 #include "start_background.h"
-
 
 #include "../myLib.h"
 #include "../state.h"
@@ -14,8 +14,7 @@ ANISPRITE player;
 DOOR startDoor, instructionsDoor, somethingElseDoor;
 
 static int doorCollision(DOOR door) {
-  return collision(player.screenCol, player.screenRow, player.width,
-                   player.height, door.col, door.row, door.width, door.height);
+  return collision(player.screenCol, player.screenRow, player.width, player.height, door.col, door.row, door.width, door.height);
 }
 
 static void initializePlayer() {
@@ -55,8 +54,7 @@ static void handlePlayerMovement() {
   if (BUTTON_HELD(BUTTON_LEFT) && player.screenCol - player.cdel > 0) {
     player.screenCol -= player.cdel;
   }
-  if (BUTTON_HELD(BUTTON_RIGHT) &&
-      player.screenCol + player.width + player.cdel < SCREENWIDTH) {
+  if (BUTTON_HELD(BUTTON_RIGHT) && player.screenCol + player.width + player.cdel < SCREENWIDTH) {
     player.screenCol += player.cdel;
   }
 }
@@ -69,7 +67,7 @@ static void handlePlayerSelection() {
     } else if (doorCollision(instructionsDoor)) {
       goToInstructions1();
     } else if (doorCollision(somethingElseDoor)) {
-      // do something else???
+      goToCredits();
     }
   }
 }

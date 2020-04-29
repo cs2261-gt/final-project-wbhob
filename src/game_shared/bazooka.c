@@ -2,6 +2,9 @@
 
 #include "sprites.h"
 
+#include "../sound/bazooka.h"
+#include "../sound/sound.h"
+
 void initializeBazooka(SPRITE *bazooka) {
   bazooka->active = FALSE;
   bazooka->cdel   = -2;
@@ -11,6 +14,7 @@ void initializeBazooka(SPRITE *bazooka) {
 
 void fireBazooka(SPRITE *bazooka, GAMESPRITE *player) {
   if (!bazooka->active) {
+    playSoundB(&bazookaSound, BAZOOKASOUNDLEN, 0);
     bazooka->active    = TRUE;
     bazooka->screenCol = player->screenCol;
     bazooka->screenRow = player->screenRow + player->height / 2 - bazooka->height;
